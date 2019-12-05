@@ -15,5 +15,6 @@ firebase.initializeApp({
 });
 
 // Export APIs to be used ..
+export const authConstructor = firebase.auth;
 export const auth = firebase.auth();
 export const db = firebase.firestore();

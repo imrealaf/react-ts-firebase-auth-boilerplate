@@ -1,14 +1,14 @@
 /**
- *  useCustomHook
+ *  useAuth
  *
  *  @type Custom Hook
- *  @desc to do ..
+ *  @desc handles authentication state
  */
 
 import { useState, useEffect } from "react";
 import { firebase } from "../firebase";
 import { userModel } from "../firebase/models";
-import { Profile } from "../types/Profile";
+import { UserProfile } from "../types/User";
 
 export default () => {
   /* 
@@ -20,7 +20,7 @@ export default () => {
     Run this when the component using it is mounted
   */
   useEffect(() => {
-    // Async setUserWithProfileFunction
+    // Async setUserWithProfile function
     const setUserWithProfile = async (user: any) => {
       // Get profile from firestore db ..
       try {
@@ -32,11 +32,12 @@ export default () => {
           })[0];
 
           // Create merged profile with user props
+          const { email, uid } = user;
           const userWithProfile = {
             ...data,
-            username: user.email,
-            id: user.uid
-          } as Profile;
+            email,
+            id: uid
+          } as UserProfile;
 
           // Update state with profile
           setUser(userWithProfile);
@@ -52,6 +53,7 @@ export default () => {
     firebase.auth.onAuthStateChanged((authUser: any) => {
       console.log("Auth changes..");
       if (authUser) {
+        console.log(authUser);
         setUser(authUser);
         setUserWithProfile(authUser);
       } else {

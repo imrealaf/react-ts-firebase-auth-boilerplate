@@ -8,11 +8,16 @@
 
 import React, { useEffect } from "react";
 import { Switch, withRouter, RouteComponentProps } from "react-router-dom";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 
 // Routing
 import { addRouteAttrToDOM } from "../utils";
 import * as routes from "../constants/routes";
 import RedirectRoute from "./hoc/RedirectRoute";
+
+// Components
+import { Navigation } from "./";
 
 // Pages
 import { Home, Login, Dashboard } from "../pages";
@@ -22,7 +27,11 @@ import { UserContext } from "../firebase/UserContext";
 import { useAuth } from "../hooks";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
+  // Get user
   const [user] = useAuth();
+
+  // Add font awesome icons
+  library.add(fab);
 
   /*
    *  On route change ..
@@ -40,6 +49,9 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
   return (
     <UserContext.Provider value={user}>
       <React.Fragment>
+        {location.pathname !== routes.LOGIN ? (
+          <Navigation currentRoute={location.pathname} />
+        ) : null}
         <main id="main" role="main">
           <Switch>
             <RedirectRoute

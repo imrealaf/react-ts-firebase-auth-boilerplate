@@ -5,18 +5,14 @@
  *  @desc the home page
  */
 
-import React, { useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import * as routes from "../constants/routes";
-import { UserContext } from "../firebase/UserContext";
+
 import { LoginForm } from "../components";
 
 const Login: React.FC = () => {
-  const user = useContext(UserContext);
-  return user ? (
-    <Redirect to={routes.DASHBOARD} />
-  ) : (
+  return (
     <React.Fragment>
       <Container className="text-center py-4">
         <Row className="mt-4">

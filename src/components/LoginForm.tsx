@@ -2,117 +2,35 @@
  *  LoginForm
  *
  *  @type Component
- *  @desc the login form page
+ *  @desc the login form
  */
 
-import React, { useEffect, useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import validator from "validator";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { authModel } from "../firebase/models";
-import * as routes from "../constants/routes";
-import * as authCodes from "../constants/authCodes";
+import config from "../constants/config";
 import { Preloader } from "../components/ui";
+import useLogin from "../hooks/useLogin";
 
 const LoginForm: React.FC = () => {
-  const history = useHistory();
-
+  // State
   const [username, setUsername] = useState(false) as any;
-  const [usernameError, setUsernameError] = useState(false) as any;
   const [password, setPassword] = useState(false) as any;
-  const [passwordError, setPasswordError] = useState(false) as any;
-  const [valid, setValid] = useState(false) as any;
-  const [pending, setPending] = useState(false) as any;
 
   // Refs
   const usernameRef = useRef() as any;
   const passwordRef = useRef() as any;
 
-  useEffect(() => {
-    if (username) {
-      validateUsername();
-    }
-    if (password) {
-      validatePassword();
-    }
-  }, [username, password]);
-
-  useEffect(() => {
-    if (usernameError || passwordError) {
-      setValid(false);
-    }
-    if (username && !usernameError && password && !passwordError) {
-      setValid(true);
-    }
-  }, [usernameError, passwordError]);
-
-  const login = async () => {
-    try {
-      const response = await authModel.doSignInWithEmailAndPassword(
-        usernameRef.current.value,
-        passwordRef.current.value
-      );
-      setPending(false);
-      history.push(routes.DASHBOARD);
-    } catch (error) {
-      setPending(false);
-      //console.log(error);
-      handleAuthError(error);
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (usernameError === false && passwordError === false) {
-      setPending(true);
-      setTimeout(login, 2000);
-    }
-  };
-
-  const validateUsername = () => {
-    if (!username || !username.trim().length) {
-      setUsernameError(true);
-      return;
-    } else if (!validator.isEmail(username.trim())) {
-      setUsernameError("Not a valid email");
-      return;
-    } else {
-      setUsernameError(false);
-    }
-  };
-
-  const validatePassword = () => {
-    if (!password || !password.trim().length) {
-      setPasswordError(true);
-      return;
-    } else if (password.trim().length < 6) {
-      setPasswordError("Password must be at least 6 chars");
-      return;
-    } else {
-      setPasswordError(false);
-    }
-  };
-
-  const handleAuthError = (authError: any) => {
-    switch (authError.code) {
-      // Focus on username
-      case authCodes.ERROR_USERNAME:
-      case authCodes.ERROR_NOT_FOUND:
-        usernameRef.current.focus();
-        setUsernameError(authError.message);
-        break;
-
-      // Focus on password
-      case authCodes.ERROR_PASSWORD:
-      case authCodes.ERROR_TOO_MANY_ATTEMPTS:
-        passwordRef.current.focus();
-        setPasswordError(authError.message);
-        break;
-    }
-  };
+  // Login api
+  const [
+    usernameError,
+    passwordError,
+    valid,
+    pending,
+    handleSubmit,
+    submitted
+  ] = useLogin([username, usernameRef], [password, passwordRef]);
 
   return (
     <React.Fragment>
@@ -124,7 +42,7 @@ const LoginForm: React.FC = () => {
       >
         <Form.Group controlId="username">
           <Form.Control
-            isInvalid={usernameError}
+            isInvalid={usernameError && submitted}
             className="text-center"
             type="email"
             name="username"
@@ -135,7 +53,7 @@ const LoginForm: React.FC = () => {
             }}
             size="lg"
           />
-          {usernameError ? (
+          {usernameError && submitted ? (
             <Form.Text className="text-left text-danger">
               {usernameError}
             </Form.Text>
@@ -143,7 +61,7 @@ const LoginForm: React.FC = () => {
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Control
-            isInvalid={passwordError}
+            isInvalid={passwordError && submitted}
             className="text-center"
             type="password"
             name="password"
@@ -154,32 +72,36 @@ const LoginForm: React.FC = () => {
             }}
             size="lg"
           />
-          {passwordError ? (
+          {passwordError && submitted ? (
             <Form.Text className="text-left text-danger">
               {passwordError}
             </Form.Text>
           ) : null}
         </Form.Group>
-        <div>
-          <Button
-            variant={valid ? "success" : "secondary"}
-            disabled={!valid}
-            size="lg"
-            type="submit"
-          >
-            <strong>Log In</strong>
-          </Button>
-        </div>
-        <div className="mt-4">
+        <Button
+          className="mt-2"
+          variant={valid ? "success" : "secondary"}
+          disabled={!valid}
+          size="lg"
+          type="submit"
+        >
+          <strong>Log In</strong>
+        </Button>
+        <div className="login-form_other mt-4">
           <p
-            className="text-secondary p-3"
+            className="text-secondary pt-3 pl-3 pr-3"
             style={{ borderTop: "1px solid #eee" }}
           >
             <small>OR CONNECT WITH</small>
           </p>
+          <div className="login-form_social mb-2">
+            <FontAwesomeIcon icon={["fab", "facebook"]} size="3x" />
+            <FontAwesomeIcon icon={["fab", "google"]} size="3x" />
+            <FontAwesomeIcon icon={["fab", "twitter"]} size="3x" />
+          </div>
         </div>
       </Form>
-      <Preloader show={pending} color="success" text="Signing you in.." />
+      <Preloader show={pending} color="primary" text="Signing you in.." />
     </React.Fragment>
   );
 };

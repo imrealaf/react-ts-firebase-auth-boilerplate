@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         <Container>
           <h1>Home</h1>
           <p>This is the home page which is public!</p>
-          <Link className="btn btn-primary btn-lg" to="/login">
+          <Link className="btn btn-primary btn-lg mt-4" to="/login">
             <strong>Login</strong>
           </Link>
         </Container>
