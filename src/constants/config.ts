@@ -7,6 +7,9 @@
 
 export default {
   appName: "My app",
+  meta: {
+    titleSeperator: "-"
+  },
   auth: {
     minPasswordLength: 6,
     validationErrors() {

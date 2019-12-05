@@ -23,7 +23,7 @@ const Page: React.FC<Props> = ({ children, title, descrip, location }) => {
   return (
     <React.Fragment>
       <Helmet
-        titleTemplate={`%s | ${config.appName}`}
+        titleTemplate={`%s ${config.meta.titleSeperator} ${config.appName}`}
         defaultTitle={config.appName}
       >
         <title>{title ? title : ""}</title>
