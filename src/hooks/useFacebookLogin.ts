@@ -1,8 +1,8 @@
 /**
- *  useCustomHook
+ *  useFacebookLogin
  *
  *  @type Custom Hook
- *  @desc to do ..
+ *  @desc handles logging in with Facebook
  */
 
 import { useHistory } from "react-router-dom";

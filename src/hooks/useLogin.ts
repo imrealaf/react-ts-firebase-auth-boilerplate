@@ -1,8 +1,8 @@
 /**
- *  useCustomHook
+ *  useLogin
  *
  *  @type Custom Hook
- *  @desc to do ..
+ *  @desc handles login form validation and submission
  */
 
 import { useState, useEffect } from "react";
