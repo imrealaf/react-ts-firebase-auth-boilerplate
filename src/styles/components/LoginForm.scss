@@ -1,0 +1,17 @@
+.login-form {
+    .form-group {
+        .form-control {
+            &.is-invalid {
+                background-image: none;
+                padding-right: initial;
+            }
+        }
+
+        .form-text {
+            line-height: 1.2;
+            font-size: 70%;
+            margin-top: $grid-gutter-width/4;
+        }
+
+    }
+}
