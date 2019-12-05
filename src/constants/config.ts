@@ -9,7 +9,6 @@ export default {
   appName: "My app",
   auth: {
     minPasswordLength: 6,
-    numCharsToShowError: 3,
     validationErrors() {
       return {
         usernameValidEmail: "Not a valid email",

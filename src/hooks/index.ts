@@ -6,5 +6,7 @@
  */
 
 import useAuth from "./useAuth";
+import useLogin from "./useLogin";
+import useFacebookLogin from "./useFacebookLogin";
 
-export { useAuth };
+export { useAuth, useLogin, useFacebookLogin };

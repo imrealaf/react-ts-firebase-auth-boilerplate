@@ -9,9 +9,8 @@ import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import config from "../constants/config";
 import { Preloader } from "../components/ui";
-import useLogin from "../hooks/useLogin";
+import { useLogin, useFacebookLogin } from "../hooks";
 
 const LoginForm: React.FC = () => {
   // State
@@ -31,6 +30,9 @@ const LoginForm: React.FC = () => {
     handleSubmit,
     submitted
   ] = useLogin([username, usernameRef], [password, passwordRef]);
+
+  // Other login providers
+  const [loginWithFacebook] = useFacebookLogin();
 
   return (
     <React.Fragment>
@@ -79,7 +81,7 @@ const LoginForm: React.FC = () => {
           ) : null}
         </Form.Group>
         <Button
-          className="mt-2"
+          className="btn-pill mt-2"
           variant={valid ? "success" : "secondary"}
           disabled={!valid}
           size="lg"
@@ -95,7 +97,11 @@ const LoginForm: React.FC = () => {
             <small>OR CONNECT WITH</small>
           </p>
           <div className="login-form_social mb-2">
-            <FontAwesomeIcon icon={["fab", "facebook"]} size="3x" />
+            <FontAwesomeIcon
+              icon={["fab", "facebook"]}
+              size="3x"
+              onClick={loginWithFacebook}
+            />
             <FontAwesomeIcon icon={["fab", "google"]} size="3x" />
             <FontAwesomeIcon icon={["fab", "twitter"]} size="3x" />
           </div>

@@ -6,12 +6,13 @@
  */
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
 import { LoginForm } from "../components";
 
 const Login: React.FC = () => {
+  const history = useHistory();
   return (
     <React.Fragment>
       <Container className="text-center py-4">
@@ -27,10 +28,15 @@ const Login: React.FC = () => {
                 <LoginForm />
               </Card.Body>
             </Card>
-            <div className="mt-2">
-              <Link to="/">
-                <small>Back to home</small>
-              </Link>
+            <div className="mt-3">
+              <a
+                href="javascript:void"
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                <small>Go Back</small>
+              </a>
             </div>
           </Col>
         </Row>
