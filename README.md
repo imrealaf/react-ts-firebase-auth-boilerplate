@@ -6,8 +6,9 @@ A boilerplate for getting a React App in TypeScript up and running fast with Fir
 
 - TSLint setup w/ Prettier
 - Jest & Enzyme for testing
-- Firebase Authentication
-- React Router DOM w/ base page setup
+- Firebase Authentication w/ Email, Facebook
+- React Router DOM w/ public & private pages
 - SASS enabled with Bootstrap SASS included
 - React Bootstrap
-- Basic Custom Hook ready to copy and go
+- React FontAwesome
+- Custom Hooks
