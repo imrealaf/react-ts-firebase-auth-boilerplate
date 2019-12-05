@@ -6,9 +6,12 @@
  */
 
 import React, { useContext } from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "../constants/config";
+import * as routes from "../constants/routes";
 import { publicNav, privateNav } from "../constants/navigation";
 import { UserContext } from "../firebase/UserContext";
 import { authModel } from "../firebase/models";
@@ -24,10 +27,10 @@ const Navigation: React.FC<Props> = ({ currentRoute }) => {
     const items = user ? privateNav : publicNav;
     return items.map((item, i) => {
       return (
-        <React.Fragment>
-          <Nav.Link href={item.path} active={currentRoute === item.path}>
+        <React.Fragment key={i}>
+          <NavLink className="nav-link" to={item.path}>
             {item.title}
-          </Nav.Link>
+          </NavLink>
         </React.Fragment>
       );
     });
@@ -35,28 +38,45 @@ const Navigation: React.FC<Props> = ({ currentRoute }) => {
 
   return (
     <Navbar bg="light" expand="md">
-      <Navbar.Brand href="#home">{config.appName}</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">{getItems()}</Nav>
-        <Nav className="ml-auto">
-          {user ? (
-            <NavDropdown title={user.name} id="basic-nav-dropdown" alignRight>
-              <NavDropdown.Item href="#action/3.1">My Account</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item
-                onClick={() => {
-                  authModel.doSignOut();
-                }}
+      <Container>
+        <Navbar.Brand href="#home">
+          <FontAwesomeIcon
+            className="mr-1 text-primary"
+            icon={["fas", "gem"]}
+            size="1x"
+          />{" "}
+          <strong>{config.appName}</strong>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">{getItems()}</Nav>
+          <Nav className="ml-auto">
+            {user ? (
+              <NavDropdown
+                title={user.displayName || ""}
+                id="basic-nav-dropdown"
+                alignRight
               >
-                Log Out
-              </NavDropdown.Item>
-            </NavDropdown>
-          ) : (
-            <Nav.Link href="/login">Sign in</Nav.Link>
-          )}
-        </Nav>
-      </Navbar.Collapse>
+                <NavDropdown.Item href="#action/3.1">
+                  My Account
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  onClick={() => {
+                    authModel.doSignOut();
+                  }}
+                >
+                  Log Out
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <NavLink className="nav-link" to={routes.LOGIN}>
+                Log In
+              </NavLink>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };

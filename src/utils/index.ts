@@ -14,6 +14,11 @@ export const addRouteAttrToDOM = (
   element.dataset.route = route === "" ? rootName : route;
 };
 
+export const getCurrentRoute = (location: any, rootName: string = "home") => {
+  const route: string = location.pathname.replace("/", "");
+  return route === "" ? rootName : route;
+};
+
 export const getTransitionDuration = (element: HTMLElement) => {
   const style = window.getComputedStyle(element);
   if (!style) {

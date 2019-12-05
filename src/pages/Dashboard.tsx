@@ -8,9 +8,11 @@
 import React from "react";
 import { Container, Jumbotron } from "react-bootstrap";
 
+import { Page } from "../components/hoc";
+
 const Dashboard: React.FC = () => {
   return (
-    <React.Fragment>
+    <Page title="Dashboard">
       <Jumbotron>
         <Container>
           <h1>Dashboard</h1>
@@ -21,7 +23,7 @@ const Dashboard: React.FC = () => {
           <p>This is a protected page!</p>
         </Container>
       </div>
-    </React.Fragment>
+    </Page>
   );
 };
 

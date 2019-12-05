@@ -41,6 +41,8 @@ export default () => {
 
           // Update state with profile
           setUser(userWithProfile);
+
+          console.log(userWithProfile);
         }
 
         // Error getting profile ..
@@ -51,9 +53,7 @@ export default () => {
 
     // Run this when Auth state has changed ..
     firebase.auth.onAuthStateChanged((authUser: any) => {
-      console.log("Auth changes..");
       if (authUser) {
-        console.log(authUser);
         setUser(authUser);
         setUserWithProfile(authUser);
       } else {

@@ -6,15 +6,16 @@
  *  @prop location - the location object from route props
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Routing
-import { addRouteAttrToDOM } from "../utils";
 import * as routes from "../constants/routes";
-import RedirectRoute from "./hoc/RedirectRoute";
+import { RedirectRoute, Preload } from "./hoc";
 
 // Components
 import { Navigation } from "./";
@@ -31,17 +32,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
   const [user] = useAuth();
 
   // Add font awesome icons
-  library.add(fab);
-
-  /*
-   *  On route change ..
-   */
-  useEffect(() => {
-    // add route data attribute to DOM.
-    // used for page specific styling, if needed
-    addRouteAttrToDOM(location);
-    console.log(user);
-  }, [location]);
+  library.add(fas, fab);
 
   /*
    *  Render
@@ -49,6 +40,13 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
   return (
     <UserContext.Provider value={user}>
       <React.Fragment>
+        <Preload>
+          <FontAwesomeIcon
+            className="text-primary"
+            icon={["fas", "gem"]}
+            size="4x"
+          />
+        </Preload>
         {location.pathname !== routes.LOGIN ? (
           <Navigation currentRoute={location.pathname} />
         ) : null}

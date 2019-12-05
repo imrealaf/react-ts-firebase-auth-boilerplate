@@ -9,12 +9,13 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Container, Jumbotron, Button } from "react-bootstrap";
 
+import { Page } from "../components/hoc";
 import { UserContext } from "../firebase/UserContext";
 
 const Home: React.FC = () => {
   const user = useContext(UserContext);
   return (
-    <React.Fragment>
+    <Page>
       <Jumbotron>
         <Container>
           <h1>Home</h1>
@@ -38,7 +39,7 @@ const Home: React.FC = () => {
           </p>
         </Container>
       </div>
-    </React.Fragment>
+    </Page>
   );
 };
 
