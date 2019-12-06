@@ -6,22 +6,22 @@
  */
 
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { NavLink, Link } from "react-router-dom";
+import { Container, Navbar, Nav, NavDropdown, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "../constants/config";
 import * as routes from "../constants/routes";
 import { publicNav, privateNav } from "../constants/navigation";
 import { UserContext } from "../firebase/UserContext";
-import { authModel } from "../firebase/models";
+import { userModel } from "../firebase/models";
+import { useLogout } from "../hooks";
 
-interface Props {
-  currentRoute: string;
-}
+interface Props {}
 
-const Navigation: React.FC<Props> = ({ currentRoute }) => {
+const Navigation: React.FC<Props> = () => {
   const user = useContext(UserContext) as any;
+  const [logout] = useLogout();
 
   const getItems = () => {
     const items = user ? privateNav : publicNav;
@@ -37,41 +37,50 @@ const Navigation: React.FC<Props> = ({ currentRoute }) => {
   };
 
   return (
-    <Navbar bg="light" expand="md">
+    <Navbar className="navigation" bg="dark" variant="dark" expand="md">
       <Container>
-        <Navbar.Brand href="#home">
-          <FontAwesomeIcon
-            className="mr-1 text-primary"
-            icon={["fas", "gem"]}
-            size="1x"
-          />{" "}
+        <Link
+          to={user ? routes.DASHBOARD : routes.HOME}
+          className="navbar-brand text-primary"
+        >
+          <FontAwesomeIcon className="mr-1" icon={["fas", "gem"]} size="1x" />{" "}
           <strong>{config.appName}</strong>
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">{getItems()}</Nav>
           <Nav className="ml-auto">
             {user ? (
-              <NavDropdown
-                title={user.displayName || ""}
-                id="basic-nav-dropdown"
-                alignRight
-              >
-                <NavDropdown.Item href="#action/3.1">
-                  My Account
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={() => {
-                    authModel.doSignOut();
-                  }}
+              <Dropdown alignRight>
+                <Dropdown.Toggle
+                  className="d-flex align-items-center"
+                  variant="link"
+                  id="dropdown-basic"
                 >
-                  Log Out
-                </NavDropdown.Item>
-              </NavDropdown>
+                  <span
+                    className="user_photo"
+                    style={{ backgroundImage: `url(${user.data.photoURL})` }}
+                  ></span>
+                  {userModel.getDisplayName(user.data)}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <NavLink className="dropdown-item" to={routes.MY_ACCOUNT}>
+                    My Account
+                  </NavLink>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={logout}>
+                    <FontAwesomeIcon
+                      className="mr-1"
+                      icon={["fas", "unlock"]}
+                    />{" "}
+                    Log Out
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             ) : (
               <NavLink className="nav-link" to={routes.LOGIN}>
-                Log In
+                <FontAwesomeIcon className="mr-1" icon={["fas", "lock"]} /> Log
+                In
               </NavLink>
             )}
           </Nav>

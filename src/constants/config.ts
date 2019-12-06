@@ -6,7 +6,11 @@
  */
 
 export default {
-  appName: "My app",
+  appName: "React App",
+  namespace: "reactapp",
+  storageKey() {
+    return `${this.namespace}_logged_in`;
+  },
   meta: {
     titleSeperator: "-"
   },
@@ -18,5 +22,9 @@ export default {
         passwordMinLength: `Password must be at least ${this.minPasswordLength} chars`
       };
     }
+  },
+  upload: {
+    maxFileUploadSize: 3145728, // 3mb
+    validTypes: ["image/png", "image/jpeg", "image/jpg"]
   }
 };

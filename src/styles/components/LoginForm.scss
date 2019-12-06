@@ -1,35 +1,38 @@
 .login-form {
-  .form-group {
-    .form-control {
-      &.is-invalid {
-        background-image: none;
-        padding-right: initial;
-      }
+    .form-group {
+        .form-control {
+            &.is-invalid {
+                background-image: none;
+                padding-right: initial;
+            }
+        }
+
+        .form-text {
+            line-height: 1.2;
+            font-size: 70%;
+            margin-top: $grid-gutter-width/4;
+        }
     }
 
-    .form-text {
-      line-height: 1.2;
-      font-size: 70%;
-      margin-top: $grid-gutter-width/4;
-    }
-  }
+    .login-form_social {
+        svg {
+            cursor: pointer;
 
-  .login-form_social {
-    svg {
-      cursor: pointer;
+            +svg {
+                margin-left: $grid-gutter-width;
+            }
+        }
 
-      + svg {
-        margin-left: $grid-gutter-width;
-      }
+        [data-icon="facebook"] {
+            color: #3b5998;
+        }
+
+        [data-icon="google"] {
+            color: #dd4b39;
+        }
+
+        [data-icon="microsoft"] {
+            color: #783bd2;
+        }
     }
-    [data-icon="facebook"] {
-      color: #3b5998;
-    }
-    [data-icon="google"] {
-      color: #dd4b39;
-    }
-    [data-icon="twitter"] {
-      color: #1da1f2;
-    }
-  }
 }

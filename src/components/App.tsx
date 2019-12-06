@@ -21,24 +21,30 @@ import { RedirectRoute, Preload } from "./hoc";
 import { Navigation } from "./";
 
 // Pages
-import { Home, Login, Dashboard } from "../pages";
+import { Home, Login, Dashboard, MyAccount } from "../pages";
 
 // Auth
 import { UserContext } from "../firebase/UserContext";
 import { useAuth } from "../hooks";
 
-const App: React.FC<RouteComponentProps> = ({ location }) => {
+interface Props extends RouteComponentProps {
+  currentUser: any;
+}
+
+const App: React.FC<Props> = ({ currentUser, location }) => {
   // Get user
-  const [user] = useAuth();
+  const [user, setUser] = useAuth(currentUser);
 
   // Add font awesome icons
   library.add(fas, fab);
+
+  const userData: any = { data: user, update: setUser };
 
   /*
    *  Render
    */
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={userData}>
       <React.Fragment>
         <Preload>
           <FontAwesomeIcon
@@ -47,15 +53,13 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             size="4x"
           />
         </Preload>
-        {location.pathname !== routes.LOGIN ? (
-          <Navigation currentRoute={location.pathname} />
-        ) : null}
+        {location.pathname !== routes.LOGIN ? <Navigation /> : null}
         <main id="main" role="main">
           <Switch>
             <RedirectRoute
               exact
               path={routes.HOME}
-              condition={!user}
+              condition={!currentUser}
               to={routes.DASHBOARD}
             >
               <Home />
@@ -63,7 +67,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <RedirectRoute
               exact
               path={routes.LOGIN}
-              condition={!user}
+              condition={!currentUser}
               to={routes.DASHBOARD}
             >
               <Login />
@@ -71,10 +75,18 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <RedirectRoute
               exact
               path={routes.DASHBOARD}
-              condition={user}
+              condition={currentUser}
               to={routes.LOGIN}
             >
               <Dashboard />
+            </RedirectRoute>
+            <RedirectRoute
+              exact
+              path={routes.MY_ACCOUNT}
+              condition={currentUser}
+              to={routes.LOGIN}
+            >
+              <MyAccount />
             </RedirectRoute>
           </Switch>
         </main>

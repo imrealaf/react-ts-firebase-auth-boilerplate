@@ -1,0 +1,11 @@
+.navigation {
+    .user_photo {
+        display: inline-block;
+        width: $grid-gutter-width;
+        height: $grid-gutter-width;
+        background: no-repeat center center;
+        background-size: cover;
+        margin-right: $grid-gutter-width/4;
+        border-radius: 50%;
+    }
+}

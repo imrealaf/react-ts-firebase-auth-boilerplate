@@ -6,11 +6,12 @@
  */
 
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "../constants/config";
+import * as routes from "../constants/routes";
 import { Page } from "../components/hoc";
 import { LoginForm } from "../components";
 
@@ -25,9 +26,9 @@ const Login: React.FC = () => {
             md={{ span: 6, offset: 3 }}
             lg={{ span: 4, offset: 4 }}
           >
-            <h4 className="mb-4">
+            <h4 className="mb-4 text-primary">
               <FontAwesomeIcon
-                className="mr-1 text-primary"
+                className="mr-1"
                 icon={["fas", "gem"]}
                 size="1x"
               />{" "}
@@ -39,14 +40,9 @@ const Login: React.FC = () => {
               </Card.Body>
             </Card>
             <div className="mt-3">
-              <Button
-                variant="link"
-                onClick={() => {
-                  history.goBack();
-                }}
-              >
-                <small>Go Back</small>
-              </Button>
+              <Link to={routes.HOME}>
+                <small>Back to site</small>
+              </Link>
             </div>
           </Col>
         </Row>

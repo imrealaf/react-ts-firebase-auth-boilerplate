@@ -1,0 +1,38 @@
+/**
+ *  My Account
+ */
+
+[data-route="my-account"] {
+    .user-profile-header {
+        .row {
+            >div {
+                text-align: center;
+
+                &:nth-child(1) {
+                    @include media-breakpoint-up(sm) {
+                        text-align: right;
+                    }
+                }
+
+                &:nth-child(2) {
+                    @include media-breakpoint-up(sm) {
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+
+    .user-profile-photo {
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        background: no-repeat center center;
+        background-size: cover;
+        border-radius: 50%;
+
+        &.has-border {
+            border: 2px solid $gray-300;
+        }
+    }
+}

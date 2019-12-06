@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useRef } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Preloader } from "../components/ui";
@@ -82,7 +82,7 @@ const LoginForm: React.FC = () => {
         </Form.Group>
         <Button
           className="btn-pill mt-2"
-          variant={valid ? "success" : "secondary"}
+          variant={valid ? "primary" : "secondary"}
           disabled={!valid}
           size="lg"
           type="submit"
@@ -97,13 +97,47 @@ const LoginForm: React.FC = () => {
             <small>OR CONNECT WITH</small>
           </p>
           <div className="login-form_social mb-2">
-            <FontAwesomeIcon
-              icon={["fab", "facebook"]}
-              size="3x"
-              onClick={loginWithFacebook}
-            />
-            <FontAwesomeIcon icon={["fab", "google"]} size="3x" />
-            <FontAwesomeIcon icon={["fab", "twitter"]} size="3x" />
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip id={`tooltip-facebook`}>
+                  <small>
+                    Log in with <strong>Facebook</strong>
+                  </small>
+                </Tooltip>
+              }
+            >
+              <FontAwesomeIcon
+                icon={["fab", "facebook"]}
+                size="3x"
+                onClick={loginWithFacebook}
+              />
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip id={`tooltip-google`}>
+                  <small>
+                    Log in with <strong>Google +</strong>
+                  </small>
+                </Tooltip>
+              }
+            >
+              <FontAwesomeIcon icon={["fab", "google"]} size="3x" />
+            </OverlayTrigger>
+
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip id={`tooltip-microsoft`}>
+                  <small>
+                    Log in with <strong>Microsoft</strong>
+                  </small>
+                </Tooltip>
+              }
+            >
+              <FontAwesomeIcon icon={["fab", "microsoft"]} size="3x" />
+            </OverlayTrigger>
           </div>
         </div>
       </Form>

@@ -1,8 +1,8 @@
 export type UserProfile = {
   id: string;
   email: string;
-  image: string;
-  name: string;
-  bio: string;
-  website: string;
+  photoURL: string;
+  displayName: string;
+  firstName: string;
+  lastName: string;
 };

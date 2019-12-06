@@ -11,13 +11,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./styles/index.scss";
 import { App } from "./components";
+import { firebase } from "./firebase";
 import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
-  document.getElementById("root")
-);
+firebase.auth.onAuthStateChanged((authUser: any) => {
+  ReactDOM.render(
+    <Router>
+      <App currentUser={authUser} />
+    </Router>,
+    document.getElementById("root")
+  );
+});
 
 registerServiceWorker();

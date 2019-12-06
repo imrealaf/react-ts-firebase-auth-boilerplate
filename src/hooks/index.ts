@@ -8,5 +8,17 @@
 import useAuth from "./useAuth";
 import useLogin from "./useLogin";
 import useFacebookLogin from "./useFacebookLogin";
+import useLogout from "./useLogout";
+import useProfile from "./useProfile";
+import useModal from "./useModal";
+import useUploadPhoto from "./useUploadPhoto";
 
-export { useAuth, useLogin, useFacebookLogin };
+export {
+  useAuth,
+  useLogin,
+  useFacebookLogin,
+  useLogout,
+  useProfile,
+  useModal,
+  useUploadPhoto
+};

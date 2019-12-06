@@ -58,7 +58,7 @@ $colors: map-merge(("blue": $blue,
     "gray-dark": $gray-800),
   $colors);
 
-$primary: $blue;
+$primary: $teal;
 $secondary: $gray-600;
 $success: $green;
 $info: $cyan;
@@ -453,7 +453,7 @@ $input-focus-color: $input-color;
 $input-focus-width: $input-btn-focus-width;
 $input-focus-box-shadow: $input-btn-focus-box-shadow;
 
-$input-placeholder-color: $gray-600;
+$input-placeholder-color: $gray-500;
 $input-plaintext-color: $body-color;
 
 $input-height-border: $input-border-width * 2;

@@ -8,5 +8,6 @@
 import App from "./App";
 import Navigation from "./Navigation";
 import LoginForm from "./LoginForm";
+import UserProfileForm from "./UserProfileForm";
 
-export { App, Navigation, LoginForm };
+export { App, Navigation, LoginForm, UserProfileForm };
