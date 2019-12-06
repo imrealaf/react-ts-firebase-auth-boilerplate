@@ -24,7 +24,7 @@ const Navigation: React.FC<Props> = () => {
   const [logout] = useLogout();
 
   const getItems = () => {
-    const items = user ? privateNav : publicNav;
+    const items = user.data ? privateNav : publicNav;
     return items.map((item, i) => {
       return (
         <React.Fragment key={i}>
@@ -40,7 +40,7 @@ const Navigation: React.FC<Props> = () => {
     <Navbar className="navigation" bg="dark" variant="dark" expand="md">
       <Container>
         <Link
-          to={user ? routes.DASHBOARD : routes.HOME}
+          to={user.data ? routes.DASHBOARD : routes.HOME}
           className="navbar-brand text-primary"
         >
           <FontAwesomeIcon className="mr-1" icon={["fas", "gem"]} size="1x" />{" "}
@@ -50,7 +50,7 @@ const Navigation: React.FC<Props> = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">{getItems()}</Nav>
           <Nav className="ml-auto">
-            {user ? (
+            {user.data ? (
               <Dropdown alignRight>
                 <Dropdown.Toggle
                   className="d-flex align-items-center"

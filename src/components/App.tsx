@@ -38,6 +38,7 @@ const App: React.FC<Props> = ({ currentUser, location }) => {
   // Add font awesome icons
   library.add(fas, fab);
 
+  // Create user data object for context
   const userData: any = { data: user, update: setUser };
 
   /*
