@@ -97,47 +97,13 @@ const LoginForm: React.FC = () => {
             <small>OR CONNECT WITH</small>
           </p>
           <div className="login-form_social mb-2">
-            <OverlayTrigger
-              placement="bottom"
-              overlay={
-                <Tooltip id={`tooltip-facebook`}>
-                  <small>
-                    Log in with <strong>Facebook</strong>
-                  </small>
-                </Tooltip>
-              }
-            >
-              <FontAwesomeIcon
-                icon={["fab", "facebook"]}
-                size="3x"
-                onClick={loginWithFacebook}
-              />
-            </OverlayTrigger>
-            <OverlayTrigger
-              placement="bottom"
-              overlay={
-                <Tooltip id={`tooltip-google`}>
-                  <small>
-                    Log in with <strong>Google +</strong>
-                  </small>
-                </Tooltip>
-              }
-            >
-              <FontAwesomeIcon icon={["fab", "google"]} size="3x" />
-            </OverlayTrigger>
-
-            <OverlayTrigger
-              placement="bottom"
-              overlay={
-                <Tooltip id={`tooltip-microsoft`}>
-                  <small>
-                    Log in with <strong>Microsoft</strong>
-                  </small>
-                </Tooltip>
-              }
-            >
-              <FontAwesomeIcon icon={["fab", "microsoft"]} size="3x" />
-            </OverlayTrigger>
+            <FontAwesomeIcon
+              icon={["fab", "facebook"]}
+              size="3x"
+              onClick={loginWithFacebook}
+            />
+            <FontAwesomeIcon icon={["fab", "google"]} size="3x" />
+            <FontAwesomeIcon icon={["fab", "microsoft"]} size="3x" />
           </div>
         </div>
       </Form>

@@ -33,3 +33,13 @@ export const doUpdateUserPhotoURL = (url: string) => {
     photoURL: url
   });
 };
+
+export const doUpdateUserProfile = (data: any) => {
+  let currentUser = auth.currentUser as any;
+  return currentUser.updateProfile({
+    displayName: data.displayName,
+    metadata: {
+      firstName: data.firstName
+    }
+  });
+};

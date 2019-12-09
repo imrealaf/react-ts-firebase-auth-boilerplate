@@ -46,10 +46,15 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
   ) as any;
 
   // Profile api
-  const [] = useProfile({
-    firstName,
-    lastName
-  });
+  const [onSubmitHandler] = useProfile(
+    {
+      firstName,
+      lastName,
+      displayName
+    },
+    setEdit,
+    user
+  );
 
   const uploadPhotoModal = () => {
     return (
@@ -102,7 +107,7 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
 
   return (
     <React.Fragment>
-      <Form noValidate className="user-profile-form">
+      <Form onSubmit={onSubmitHandler} noValidate className="user-profile-form">
         <Row>
           <Col className="text-center">
             <div
