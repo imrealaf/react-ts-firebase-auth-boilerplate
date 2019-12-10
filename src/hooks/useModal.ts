@@ -8,13 +8,13 @@
 import { useState } from "react";
 
 export default () => {
-  const [showModal, setShowModal] = useState(false) as any;
+  const [show, setShow] = useState(false) as any;
 
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   /* 
     Return data for component consumption
   */
-  return [showModal, handleShowModal, handleCloseModal, setShowModal];
+  return { show, handleShow, handleClose, setShow };
 };

@@ -32,20 +32,22 @@ interface Props extends RouteComponentProps {
 }
 
 const App: React.FC<Props> = ({ currentUser, location }) => {
-  // Get user
-  const [user, setUser] = useAuth(currentUser);
+  /*
+   *  Auth API
+   *  get user and update method
+   */
+  const auth = useAuth(currentUser) as any;
 
-  // Add font awesome icons
+  /*
+   *  Add font awesome library
+   */
   library.add(fas, fab);
-
-  // Create user data object for context
-  const userData: any = { data: user, update: setUser };
 
   /*
    *  Render
    */
   return (
-    <UserContext.Provider value={userData}>
+    <UserContext.Provider value={auth}>
       <React.Fragment>
         <Preload>
           <FontAwesomeIcon

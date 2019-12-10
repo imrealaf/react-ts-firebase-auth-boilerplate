@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useRef } from "react";
-import { Form, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Preloader } from "../components/ui";
@@ -14,37 +14,30 @@ import { useLogin, useFacebookLogin } from "../hooks";
 
 const LoginForm: React.FC = () => {
   // State
-  const [username, setUsername] = useState(false) as any;
-  const [password, setPassword] = useState(false) as any;
+  const [username, setUsername] = useState(null) as any;
+  const [password, setPassword] = useState(null) as any;
 
   // Refs
   const usernameRef = useRef() as any;
   const passwordRef = useRef() as any;
 
   // Login api
-  const [
-    usernameError,
-    passwordError,
-    valid,
-    pending,
-    handleSubmit,
-    submitted
-  ] = useLogin([username, usernameRef], [password, passwordRef]);
+  const login = useLogin([username, usernameRef], [password, passwordRef]);
 
   // Other login providers
-  const [loginWithFacebook] = useFacebookLogin();
+  const loginWithFacebook = useFacebookLogin();
 
   return (
     <React.Fragment>
       <Form
         noValidate
-        onSubmit={handleSubmit}
+        onSubmit={login.handleSubmit}
         className="login-form"
-        style={pending ? { display: "none" } : { paddingTop: "20px" }}
+        style={login.pending ? { display: "none" } : { paddingTop: "20px" }}
       >
         <Form.Group controlId="username">
           <Form.Control
-            isInvalid={usernameError && submitted}
+            isInvalid={login.usernameError && login.submitted}
             className="text-center"
             type="email"
             name="username"
@@ -55,15 +48,15 @@ const LoginForm: React.FC = () => {
             }}
             size="lg"
           />
-          {usernameError && submitted ? (
+          {login.usernameError && login.submitted ? (
             <Form.Text className="text-left text-danger">
-              {usernameError}
+              {login.usernameError}
             </Form.Text>
           ) : null}
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Control
-            isInvalid={passwordError && submitted}
+            isInvalid={login.passwordError && login.submitted}
             className="text-center"
             type="password"
             name="password"
@@ -74,16 +67,16 @@ const LoginForm: React.FC = () => {
             }}
             size="lg"
           />
-          {passwordError && submitted ? (
+          {login.passwordError && login.submitted ? (
             <Form.Text className="text-left text-danger">
-              {passwordError}
+              {login.passwordError}
             </Form.Text>
           ) : null}
         </Form.Group>
         <Button
           className="btn-pill mt-2"
-          variant={valid ? "primary" : "secondary"}
-          disabled={!valid}
+          variant={login.valid ? "primary" : "secondary"}
+          disabled={!login.valid}
           size="lg"
           type="submit"
         >
@@ -107,7 +100,7 @@ const LoginForm: React.FC = () => {
           </div>
         </div>
       </Form>
-      <Preloader show={pending} color="primary" text="Signing you in.." />
+      <Preloader show={login.pending} color="primary" text="Signing you in.." />
     </React.Fragment>
   );
 };

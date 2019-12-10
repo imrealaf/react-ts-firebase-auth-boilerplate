@@ -1,8 +1,8 @@
 /**
- *  LoginForm
+ *  UserProfileForm
  *
  *  @type Component
- *  @desc the login form
+ *  @desc the form for updating a user's profile
  */
 
 import React, { useState, useRef } from "react";
@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Preloader } from "../components/ui";
 import { useProfile, useModal, useUploadPhoto } from "../hooks";
 
+// UserProfileForm props
 interface Props {
   user: any;
   setEdit: any;
@@ -20,36 +21,25 @@ interface Props {
 const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
   // State
   const [photo, setPhoto] = useState(null) as any;
-  const [firstName, setFirstName] = useState(user.data.firstName) as any;
-  const [lastName, setLastName] = useState(user.data.lastName) as any;
   const [displayName, setDisplayName] = useState(user.data.displayName) as any;
 
   // Refs
   const photoRef = useRef() as any;
-  const firstNameRef = useRef() as any;
-  const lastNameRef = useRef() as any;
   const displayNameRef = useRef() as any;
 
   // Modal api
-  const [
-    showModal,
-    handleShowModal,
-    handleCloseModal,
-    setShowModal
-  ] = useModal();
+  const modal = useModal();
 
   // Photo upload api
   const [filePending, fileProgress, fileError] = useUploadPhoto(
     photo,
     user,
-    setShowModal
+    modal.setShow
   ) as any;
 
   // Profile api
   const [onSubmitHandler] = useProfile(
     {
-      firstName,
-      lastName,
       displayName
     },
     setEdit,
@@ -58,7 +48,7 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
 
   const uploadPhotoModal = () => {
     return (
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={modal.show} onHide={modal.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Upload photo</Modal.Title>
         </Modal.Header>
@@ -96,7 +86,7 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
           <Button
             className="btn-pill"
             variant="secondary"
-            onClick={handleCloseModal}
+            onClick={modal.handleClose}
           >
             <strong>Cancel</strong>
           </Button>
@@ -115,49 +105,11 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
               style={{ backgroundImage: `url(${user.data.photoURL})` }}
             ></div>
             <div className="mb-4 mt-2">
-              <Button className="btn-pill" size="sm" onClick={handleShowModal}>
+              <Button className="btn-pill" size="sm" onClick={modal.handleShow}>
                 <FontAwesomeIcon className="mr-1" icon={["fas", "camera"]} />{" "}
                 <strong>Upload photo</strong>
               </Button>
             </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="firstName">
-              <Form.Label>
-                <strong>First name</strong>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                name="firstName"
-                placeholder="First name"
-                ref={firstNameRef}
-                defaultValue={firstName}
-                onChange={() => {
-                  setFirstName(firstNameRef.current.value);
-                }}
-                size="lg"
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="lastName">
-              <Form.Label>
-                <strong>First name</strong>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                name="lastName"
-                placeholder="Last name"
-                ref={lastNameRef}
-                defaultValue={lastName}
-                onChange={() => {
-                  setLastName(lastNameRef.current.value);
-                }}
-                size="lg"
-              />
-            </Form.Group>
           </Col>
         </Row>
         <Row>

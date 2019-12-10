@@ -3,11 +3,12 @@
  *
  *  @type Component
  *  @desc the home page
+ *  @scope public
  */
 
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "../constants/config";
@@ -16,7 +17,6 @@ import { Page } from "../components/hoc";
 import { LoginForm } from "../components";
 
 const Login: React.FC = () => {
-  const history = useHistory();
   return (
     <Page title="Log In">
       <Container className="text-center py-4">

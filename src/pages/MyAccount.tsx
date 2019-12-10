@@ -2,7 +2,8 @@
  *  MyAccount
  *
  *  @type Component
- *  @desc the home page
+ *  @desc my account page that display user information. protected page
+ *  @scope private
  */
 
 import React, { useContext, useState } from "react";
@@ -45,11 +46,7 @@ const MyAccount: React.FC = () => {
                 ></div>
               </Col>
               <Col sm={6}>
-                <h1>
-                  {userModel.getName(user.data)
-                    ? userModel.getName(user.data)
-                    : userModel.getDisplayName(user.data)}
-                </h1>
+                <h1>{userModel.getDisplayName(user.data)}</h1>
                 <p className="text-secondary">{user.data.email}</p>
                 <Button
                   className="btn-pill"

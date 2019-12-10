@@ -63,10 +63,10 @@ export default (usernameData: any[], passwordData: any[]) => {
   const login = async () => {
     try {
       await authModel.doSignInWithEmailAndPassword(username, password);
-      setPending(false);
+      if (submitted) setPending(false);
       history.push(routes.DASHBOARD);
     } catch (error) {
-      setPending(false);
+      if (error) setPending(false);
       handleAuthError(error);
     }
   };
@@ -140,12 +140,12 @@ export default (usernameData: any[], passwordData: any[]) => {
   /* 
     Return data for component consumption
   */
-  return [
+  return {
     usernameError,
     passwordError,
     valid,
     pending,
     handleSubmit,
     submitted
-  ];
+  };
 };

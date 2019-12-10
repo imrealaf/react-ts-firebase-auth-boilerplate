@@ -1,5 +1,4 @@
-import * as collections from "../../constants/collections";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 import { UserProfile } from "../../types/User";
 import defaultProfileImage from "../../assets/images/profile-default.png";
 
@@ -17,14 +16,8 @@ export const getUserProps = (user: any): UserProfile => {
   };
 };
 
-export const getName = (user: any): string | boolean => {
-  return user.firstName && user.lastName
-    ? `${user.firstName} ${user.lastName}`
-    : false;
-};
-
 export const getDisplayName = (user: any): string | boolean => {
-  return user.displayName ? user.displayName : getName(user);
+  return user.displayName ? user.displayName : "User";
 };
 
 export const doUpdateUserPhotoURL = (url: string) => {
@@ -34,12 +27,9 @@ export const doUpdateUserPhotoURL = (url: string) => {
   });
 };
 
-export const doUpdateUserProfile = (data: any) => {
+export const doUpdateUser = (data: any) => {
   let currentUser = auth.currentUser as any;
   return currentUser.updateProfile({
-    displayName: data.displayName,
-    metadata: {
-      firstName: data.firstName
-    }
+    displayName: data.displayName
   });
 };

@@ -2,7 +2,8 @@
  *  Dashboard
  *
  *  @type Component
- *  @desc the home page
+ *  @desc the dashboard page. acts as home page for protected area
+ *  @scope private
  */
 
 import React from "react";

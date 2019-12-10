@@ -24,7 +24,6 @@ export default (currentUser: any) => {
     // Run this when Auth state has changed ..
     firebase.auth.onAuthStateChanged((authUser: any) => {
       if (authUser) {
-        console.log(authUser);
         setUser(userModel.getUserProps(authUser));
       } else {
         setUser(null);
@@ -35,5 +34,8 @@ export default (currentUser: any) => {
   /* 
     Return data for component consumption
   */
-  return [user, setUser];
+  return {
+    data: user,
+    update: setUser
+  };
 };

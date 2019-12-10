@@ -3,17 +3,16 @@
  *
  *  @type Component
  *  @desc the home page
+ *  @scope public
  */
 
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Jumbotron, Button } from "react-bootstrap";
+import { Container, Jumbotron } from "react-bootstrap";
 
 import { Page } from "../components/hoc";
-import { UserContext } from "../firebase/UserContext";
 
 const Home: React.FC = () => {
-  const user = useContext(UserContext);
   return (
     <Page>
       <Jumbotron>

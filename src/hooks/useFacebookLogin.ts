@@ -5,14 +5,9 @@
  *  @desc handles logging in with Facebook
  */
 
-import { useHistory } from "react-router-dom";
-
 import { firebase } from "../firebase";
 
 export default () => {
-  // Get history
-  const history = useHistory();
-
   // Create provider
   const provider = new firebase.authConstructor.FacebookAuthProvider();
 
@@ -24,6 +19,7 @@ export default () => {
       const token = result.credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+      console.log(token, user);
     } catch (error) {
       console.log(error);
     }
@@ -32,5 +28,5 @@ export default () => {
   /* 
     Return data for component consumption
   */
-  return [loginWithFacebook];
+  return loginWithFacebook;
 };
