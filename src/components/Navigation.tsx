@@ -2,12 +2,12 @@
  *  Navbar
  *
  *  @type UI Component
- *  @desc a simple preloader for displaying while waiting for app to do something
+ *  @desc navigation component displaying items based on auth state
  */
 
 import React, { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Container, Navbar, Nav, NavDropdown, Dropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import config from "../constants/config";
