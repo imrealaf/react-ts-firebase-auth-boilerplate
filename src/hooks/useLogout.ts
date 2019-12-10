@@ -18,5 +18,5 @@ export default () => {
   /* 
     Return data for component consumption
   */
-  return [logout];
+  return logout;
 };

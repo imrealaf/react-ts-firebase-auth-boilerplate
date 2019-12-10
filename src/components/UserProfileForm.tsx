@@ -19,25 +19,31 @@ interface Props {
 }
 
 const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
-  // State
+  /*
+   *  Field states
+   */
   const [photo, setPhoto] = useState(null) as any;
   const [displayName, setDisplayName] = useState(user.data.displayName) as any;
 
-  // Refs
+  /*
+   *  Element refs
+   */
   const photoRef = useRef() as any;
   const displayNameRef = useRef() as any;
 
-  // Modal api
+  /*
+   *  Modal api
+   */
   const modal = useModal();
 
-  // Photo upload api
-  const [filePending, fileProgress, fileError] = useUploadPhoto(
-    photo,
-    user,
-    modal.setShow
-  ) as any;
+  /*
+   *  Photo upload api
+   */
+  const upload = useUploadPhoto(photo, user, modal.setShow) as any;
 
-  // Profile api
+  /*
+   *  Profile api
+   */
   const [onSubmitHandler] = useProfile(
     {
       displayName
@@ -46,6 +52,9 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
     user
   );
 
+  /*
+   *  Upload photo modal
+   */
   const uploadPhotoModal = () => {
     return (
       <Modal show={modal.show} onHide={modal.handleClose}>
@@ -53,7 +62,7 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
           <Modal.Title>Upload photo</Modal.Title>
         </Modal.Header>
         <Modal.Body className="p-4">
-          {filePending ? (
+          {upload.pending ? (
             <div className="text-center">
               <Preloader show={true} />
             </div>
@@ -61,7 +70,7 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
             <React.Fragment>
               <div className="custom-file">
                 <Form.Control
-                  isInvalid={fileError}
+                  isInvalid={upload.error}
                   type="file"
                   className="custom-file-input"
                   id="photo"
@@ -76,8 +85,8 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
                   Choose photo ...
                 </label>
               </div>
-              {fileError ? (
-                <Form.Text className="text-danger">{fileError}</Form.Text>
+              {upload.error ? (
+                <Form.Text className="text-danger">{upload.error}</Form.Text>
               ) : null}
             </React.Fragment>
           )}
@@ -95,6 +104,9 @@ const UserProfileForm: React.FC<Props> = ({ user, setEdit }) => {
     );
   };
 
+  /*
+   *  Render
+   */
   return (
     <React.Fragment>
       <Form onSubmit={onSubmitHandler} noValidate className="user-profile-form">

@@ -13,20 +13,31 @@ import { Preloader } from "../components/ui";
 import { useLogin, useFacebookLogin } from "../hooks";
 
 const LoginForm: React.FC = () => {
-  // State
+  /*
+   *  Field states
+   */
   const [username, setUsername] = useState(null) as any;
   const [password, setPassword] = useState(null) as any;
 
-  // Refs
+  /*
+   *  Element refs
+   */
   const usernameRef = useRef() as any;
   const passwordRef = useRef() as any;
 
-  // Login api
+  /*
+   *  Email login api
+   */
   const login = useLogin([username, usernameRef], [password, passwordRef]);
 
-  // Other login providers
+  /*
+   *  Facebook login api
+   */
   const loginWithFacebook = useFacebookLogin();
 
+  /*
+   *  Render
+   */
   return (
     <React.Fragment>
       <Form

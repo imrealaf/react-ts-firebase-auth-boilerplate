@@ -22,10 +22,10 @@ interface UploadMetadata {
 }
 
 export default (file: any, user: any, setShowModal: any) => {
-  const [filePending, setPending] = useState(false);
-  const [fileProgress, setProgress] = useState(0);
-  const [fileError, setFileError] = useState(null) as any;
-  const [fileValid, setValid] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null) as any;
+  const [valid, setValid] = useState(false);
 
   useEffect(() => {
     if (file !== null) {
@@ -35,13 +35,13 @@ export default (file: any, user: any, setShowModal: any) => {
 
   const validateFile = (file: any) => {
     if (file.size > config.upload.maxFileUploadSize) {
-      setFileError(
+      setError(
         `File exceeds max size limit of ${filesize(
           config.upload.maxFileUploadSize
         )}`
       );
     } else if (!config.upload.validTypes.includes(file.type)) {
-      setFileError("File is not a valid file type");
+      setError("File is not a valid file type");
     } else {
       setValid(true);
     }
@@ -99,7 +99,7 @@ export default (file: any, user: any, setShowModal: any) => {
     validateFile(file);
     setTimeout(() => {
       setPending(false);
-      if (fileValid === true) {
+      if (valid === true) {
         console.log("file is valid");
         const metadata: UploadMetadata = {
           contentType: file.type,
@@ -114,5 +114,5 @@ export default (file: any, user: any, setShowModal: any) => {
   /* 
     Return data for component consumption
   */
-  return [filePending, fileProgress, fileError, handleFileUpload];
+  return { pending, progress, error, handleFileUpload };
 };

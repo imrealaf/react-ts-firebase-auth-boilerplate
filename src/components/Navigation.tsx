@@ -17,12 +17,23 @@ import { UserContext } from "../firebase/UserContext";
 import { userModel } from "../firebase/models";
 import { useLogout } from "../hooks";
 
+// Navifation props
 interface Props {}
 
 const Navigation: React.FC<Props> = () => {
+  /*
+   *  Get user api
+   */
   const user = useContext(UserContext) as any;
-  const [logout] = useLogout();
 
+  /*
+   *  Logout api
+   */
+  const logout = useLogout();
+
+  /*
+   *  Get items function
+   */
   const getItems = () => {
     const items = user.data ? privateNav : publicNav;
     return items.map((item, i) => {
@@ -36,6 +47,9 @@ const Navigation: React.FC<Props> = () => {
     });
   };
 
+  /*
+   *  Render
+   */
   return (
     <Navbar className="navigation" bg="dark" variant="dark" expand="md">
       <Container>
