@@ -7,8 +7,9 @@
 
 import React from "react";
 
-import { ThemeColor } from "../../types/ThemeColor";
+import { ThemeColor } from "../../types/Theme";
 
+// Preloader props def
 interface Props {
   show: boolean;
   color: ThemeColor;
@@ -33,6 +34,7 @@ const Preloader: React.FC<Props> & { defaultProps: Partial<Props> } = ({
   ) : null;
 };
 
+// Set Preloader default props
 Preloader.defaultProps = {
   show: false,
   color: "primary"
