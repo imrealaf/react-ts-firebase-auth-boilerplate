@@ -46,6 +46,7 @@ const LoginForm: React.FC = () => {
         className="login-form"
         style={login.pending ? { display: "none" } : { paddingTop: "20px" }}
       >
+        {/* Username field */}
         <Form.Group controlId="username">
           <Form.Control
             isInvalid={login.usernameError && login.submitted}
@@ -59,12 +60,15 @@ const LoginForm: React.FC = () => {
             }}
             size="lg"
           />
+          {/* Error text */}
           {login.usernameError && login.submitted ? (
             <Form.Text className="text-left text-danger">
               {login.usernameError}
             </Form.Text>
           ) : null}
         </Form.Group>
+
+        {/* Password field */}
         <Form.Group controlId="password">
           <Form.Control
             isInvalid={login.passwordError && login.submitted}
@@ -78,12 +82,15 @@ const LoginForm: React.FC = () => {
             }}
             size="lg"
           />
+          {/* Error text */}
           {login.passwordError && login.submitted ? (
             <Form.Text className="text-left text-danger">
               {login.passwordError}
             </Form.Text>
           ) : null}
         </Form.Group>
+
+        {/* Submit button */}
         <Button
           className="btn-pill mt-2"
           variant={login.valid ? "primary" : "secondary"}
@@ -93,6 +100,8 @@ const LoginForm: React.FC = () => {
         >
           <strong>Log In</strong>
         </Button>
+
+        {/* Social login section */}
         <div className="login-form_other mt-4">
           <p
             className="text-secondary pt-3 pl-3 pr-3"
