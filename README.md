@@ -1,4 +1,4 @@
-# React TypeScript Firebase Auth Boilerplate
+# React TypeScript Firebase Auth
 
 A boilerplate for getting a React App in TypeScript up and running fast with Firebase Auth
 
